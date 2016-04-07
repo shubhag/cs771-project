@@ -1,0 +1,209 @@
+(1381, 36, 36)
+(176, 36, 36)
+(176, 36, 36)
+Data Loaded...
+Adaboost Classifiction
+Fitting Done for max depth = 4 and trees = 120
+Accuracy: 86.9318181818
+Fitting Done for max depth = 4 and trees = 140
+Accuracy: 86.3636363636
+Fitting Done for max depth = 4 and trees = 160
+Accuracy: 86.3636363636
+Fitting Done for max depth = 4 and trees = 180
+Accuracy: 87.5
+Fitting Done for max depth = 4 and trees = 200
+Accuracy: 90.3409090909
+Fitting Done for max depth = 4 and trees = 220
+Accuracy: 88.6363636364
+Fitting Done for max depth = 4 and trees = 240
+Accuracy: 88.0681818182
+Fitting Done for max depth = 4 and trees = 260
+Accuracy: 90.3409090909
+Fitting Done for max depth = 4 and trees = 280
+Accuracy: 89.2045454545
+Fitting Done for max depth = 4 and trees = 300
+Accuracy: 89.2045454545
+Fitting Done for max depth = 8 and trees = 120
+Accuracy: 92.6136363636
+Fitting Done for max depth = 8 and trees = 140
+Accuracy: 91.4772727273
+Fitting Done for max depth = 8 and trees = 160
+Accuracy: 92.0454545455
+Fitting Done for max depth = 8 and trees = 180
+Accuracy: 91.4772727273
+Fitting Done for max depth = 8 and trees = 200
+Accuracy: 89.7727272727
+Fitting Done for max depth = 8 and trees = 220
+Accuracy: 90.9090909091
+Fitting Done for max depth = 8 and trees = 240
+Accuracy: 92.0454545455
+Fitting Done for max depth = 8 and trees = 260
+Accuracy: 92.0454545455
+Fitting Done for max depth = 8 and trees = 280
+Accuracy: 91.4772727273
+Fitting Done for max depth = 8 and trees = 300
+Accuracy: 92.0454545455
+Fitting Done for max depth = 12 and trees = 120
+Accuracy: 92.6136363636
+Fitting Done for max depth = 12 and trees = 140
+Accuracy: 93.75
+Fitting Done for max depth = 12 and trees = 160
+Accuracy: 93.1818181818
+Fitting Done for max depth = 12 and trees = 180
+Accuracy: 93.75
+Fitting Done for max depth = 12 and trees = 200
+Accuracy: 91.4772727273
+Fitting Done for max depth = 12 and trees = 220
+Accuracy: 93.75
+Fitting Done for max depth = 12 and trees = 240
+Accuracy: 92.6136363636
+Fitting Done for max depth = 12 and trees = 260
+Accuracy: 93.75
+Fitting Done for max depth = 12 and trees = 280
+Accuracy: 93.75
+Fitting Done for max depth = 12 and trees = 300
+Accuracy: 92.6136363636
+Fitting Done for max depth = 16 and trees = 120
+Accuracy: 91.4772727273
+Fitting Done for max depth = 16 and trees = 140
+Accuracy: 90.9090909091
+Fitting Done for max depth = 16 and trees = 160
+Accuracy: 92.6136363636
+Fitting Done for max depth = 16 and trees = 180
+Accuracy: 92.6136363636
+Fitting Done for max depth = 16 and trees = 200
+Accuracy: 93.1818181818
+Fitting Done for max depth = 16 and trees = 220
+Accuracy: 93.1818181818
+Fitting Done for max depth = 16 and trees = 240
+Accuracy: 92.6136363636
+Fitting Done for max depth = 16 and trees = 260
+Accuracy: 92.6136363636
+Fitting Done for max depth = 16 and trees = 280
+Accuracy: 93.75
+Fitting Done for max depth = 16 and trees = 300
+Accuracy: 92.6136363636
+Fitting Done for max depth = 20 and trees = 120
+Accuracy: 79.5454545455
+Fitting Done for max depth = 20 and trees = 140
+Accuracy: 93.1818181818
+Fitting Done for max depth = 20 and trees = 160
+Accuracy: 76.7045454545
+Fitting Done for max depth = 20 and trees = 180
+Accuracy: 75.5681818182
+Fitting Done for max depth = 20 and trees = 200
+Accuracy: 78.4090909091
+Fitting Done for max depth = 20 and trees = 220
+Accuracy: 79.5454545455
+Fitting Done for max depth = 20 and trees = 240
+Accuracy: 93.1818181818
+Fitting Done for max depth = 20 and trees = 260
+Accuracy: 93.1818181818
+Fitting Done for max depth = 20 and trees = 280
+Accuracy: 93.75
+Fitting Done for max depth = 20 and trees = 300
+Accuracy: 77.8409090909
+Fitting Done for max depth = 24 and trees = 120
+Accuracy: 73.8636363636
+Fitting Done for max depth = 24 and trees = 140
+Accuracy: 76.7045454545
+Fitting Done for max depth = 24 and trees = 160
+Accuracy: 74.4318181818
+Fitting Done for max depth = 24 and trees = 180
+Accuracy: 73.8636363636
+Fitting Done for max depth = 24 and trees = 200
+Accuracy: 75.5681818182
+Fitting Done for max depth = 24 and trees = 220
+Accuracy: 75.0
+Fitting Done for max depth = 24 and trees = 240
+Accuracy: 75.5681818182
+Fitting Done for max depth = 24 and trees = 260
+Accuracy: 74.4318181818
+Fitting Done for max depth = 24 and trees = 280
+Accuracy: 75.5681818182
+Fitting Done for max depth = 24 and trees = 300
+Accuracy: 75.5681818182
+Fitting Done for max depth = 28 and trees = 120
+Accuracy: 72.7272727273
+Fitting Done for max depth = 28 and trees = 140
+Accuracy: 73.8636363636
+Fitting Done for max depth = 28 and trees = 160
+Accuracy: 75.5681818182
+Fitting Done for max depth = 28 and trees = 180
+Accuracy: 75.0
+Fitting Done for max depth = 28 and trees = 200
+Accuracy: 73.8636363636
+Fitting Done for max depth = 28 and trees = 220
+Accuracy: 74.4318181818
+Fitting Done for max depth = 28 and trees = 240
+Accuracy: 76.7045454545
+Fitting Done for max depth = 28 and trees = 260
+Accuracy: 71.5909090909
+Fitting Done for max depth = 28 and trees = 280
+Accuracy: 72.7272727273
+Fitting Done for max depth = 28 and trees = 300
+Accuracy: 74.4318181818
+Fitting Done for max depth = 32 and trees = 120
+Accuracy: 73.2954545455
+Fitting Done for max depth = 32 and trees = 140
+Accuracy: 73.8636363636
+Fitting Done for max depth = 32 and trees = 160
+Accuracy: 75.0
+Fitting Done for max depth = 32 and trees = 180
+Accuracy: 75.0
+Fitting Done for max depth = 32 and trees = 200
+Accuracy: 76.1363636364
+Fitting Done for max depth = 32 and trees = 220
+Accuracy: 75.5681818182
+Fitting Done for max depth = 32 and trees = 240
+Accuracy: 74.4318181818
+Fitting Done for max depth = 32 and trees = 260
+Accuracy: 75.0
+Fitting Done for max depth = 32 and trees = 280
+Accuracy: 76.1363636364
+Fitting Done for max depth = 32 and trees = 300
+Accuracy: 75.5681818182
+Fitting Done for max depth = 36 and trees = 120
+Accuracy: 73.2954545455
+Fitting Done for max depth = 36 and trees = 140
+Accuracy: 75.0
+Fitting Done for max depth = 36 and trees = 160
+Accuracy: 72.7272727273
+Fitting Done for max depth = 36 and trees = 180
+Accuracy: 75.0
+Fitting Done for max depth = 36 and trees = 200
+Accuracy: 75.0
+Fitting Done for max depth = 36 and trees = 220
+Accuracy: 77.2727272727
+Fitting Done for max depth = 36 and trees = 240
+Accuracy: 73.2954545455
+Fitting Done for max depth = 36 and trees = 260
+Accuracy: 72.7272727273
+Fitting Done for max depth = 36 and trees = 280
+Accuracy: 74.4318181818
+Fitting Done for max depth = 36 and trees = 300
+Accuracy: 75.5681818182
+Fitting Done for max depth = 40 and trees = 120
+Accuracy: 75.5681818182
+Fitting Done for max depth = 40 and trees = 140
+Accuracy: 75.5681818182
+Fitting Done for max depth = 40 and trees = 160
+Accuracy: 74.4318181818
+Fitting Done for max depth = 40 and trees = 180
+Accuracy: 73.8636363636
+Fitting Done for max depth = 40 and trees = 200
+Accuracy: 74.4318181818
+Fitting Done for max depth = 40 and trees = 220
+Accuracy: 76.1363636364
+Fitting Done for max depth = 40 and trees = 240
+Accuracy: 77.2727272727
+Fitting Done for max depth = 40 and trees = 260
+Accuracy: 71.5909090909
+Fitting Done for max depth = 40 and trees = 280
+Accuracy: 73.2954545455
+Fitting Done for max depth = 40 and trees = 300
+Accuracy: 74.4318181818
+Finding accuracy for best found parameters:
+Best number of estimators: 140
+Best depth of trees: 12
+Accuracy: 92.0454545455

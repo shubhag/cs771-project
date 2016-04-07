@@ -1,0 +1,24 @@
+Data Loaded...
+Trees: 20 Accuracy:  90.5555555556
+Trees: 40 Accuracy:  91.6666666667
+Trees: 60 Accuracy:  92.2222222222
+Trees: 80 Accuracy:  90.5555555556
+Trees: 100 Accuracy:  92.7777777778
+Trees: 120 Accuracy:  92.7777777778
+Trees: 140 Accuracy:  92.2222222222
+Trees: 160 Accuracy:  92.7777777778
+Trees: 180 Accuracy:  92.2222222222
+Trees: 200 Accuracy:  93.8888888889
+Trees: 220 Accuracy:  93.8888888889
+Trees: 240 Accuracy:  93.8888888889
+Trees: 260 Accuracy:  91.6666666667
+Trees: 280 Accuracy:  91.1111111111
+Trees: 300 Accuracy:  91.6666666667
+Trees: 320 Accuracy:  92.2222222222
+Trees: 340 Accuracy:  92.7777777778
+Trees: 360 Accuracy:  92.2222222222
+Trees: 380 Accuracy:  93.3333333333
+Trees: 400 Accuracy:  92.2222222222
+Finding accuracy for best found parameters:
+Best tree size: 200
+Accuracy: 92.2222222222
