@@ -10,12 +10,12 @@ def getData(folder):
 	FL = []
 	cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 	cur_dir = os.path.join(cur_dir, "makedataset")
-	folders = ["auto", "car", "bicycle", "motorcycle", "person"]
-	obj_id = [0, 1, 2, 3, 4]
+	folders = ["auto", "car", "bicycle", "motorcycle", "person", "rickshaw"]
+	obj_id = [0, 1, 2, 3, 4, 5]
 	size = (36, 36)
 
 	data_dir = os.path.join(cur_dir, folder)
-	for i in range(0,5):
+	for i in range(0,6):
 		folder = folders[i]
 		obj_dir = os.path.join(data_dir, folder)
 		files = os.listdir(obj_dir)
@@ -30,10 +30,10 @@ def getData(folder):
 			FV.append(bw)
 			FL.append(obj_id[i])
 
-	FV = np.asarray(FV)
-	FL = np.asarray(FL)
+	# FV = np.asarray(FV)
+	# FL = np.asarray(FL)
 	# FV = FV.reshape((FV.shape[0], 1, size[0], size[1]))
-	print FV.shape
+	# print FV.shape
 	return FV,FL
 
 def constructHoG(data, orientations = 8, cell_size = (4,4), block_size = (2,2) ):
@@ -47,15 +47,16 @@ if __name__ == '__main__':
 	trainData, trainLabel = getData("train")
 	validationData, validationLabel = getData("validation")
 	testData, testLabel = getData("test")
-	
+	testData+=validationData
+	testLabel+=validationLabel
 	print "Data Loaded..."
 
 	svm_accuracy = np.zeros(shape = (16,16)) #from 3 to 18
 
-	best_orientation = -1
-	best_cell = -1
+	best_orientation = 10
+	best_cell = 4
 	best_accuracy = -1
-
+	'''
 	for i in range(16):
 		o = i+3
 		for j in range(16):
@@ -63,7 +64,7 @@ if __name__ == '__main__':
 			trainHoG = constructHoG(trainData, orientations = o, cell_size = (c,c))
 			validationHoG = constructHoG(validationData, orientations = o, cell_size = (c,c))
 			print "Constructed HoG for orientation =",o,"and cell_size =",(c,c)
-			SVM = LinearSVC(loss = 'hinge')
+			SVM = LinearSVC(loss = 'hinge', penalty = 'l2')
 			SVM.fit(trainHoG,trainLabel)
 			svm_accuracy[i,j] = SVM.score(validationHoG, validationLabel)*100.0
 			print svm_accuracy[i,j]
@@ -72,13 +73,13 @@ if __name__ == '__main__':
 				best_orientation = o
 				best_cell = c 
 	np.savetxt("svm_training_stats.txt",svm_accuracy,fmt = '%10.5f')
-
-	print "Finding accuracy for best found parameters:"
-	print "Best cell size:",best_cell
-	print "Best orientations:", best_orientation
+	'''
+	print "Finding accuracy for parameters:"
+	print "Cell size:",best_cell
+	print "Orientations:", best_orientation
 
 	trainHoG = constructHoG(trainData, orientations = best_orientation, cell_size = (best_cell,best_cell))
 	testHoG = constructHoG(testData, orientations = best_orientation, cell_size = (best_cell,best_cell))
-	SVM = LinearSVC(loss = 'hinge')
+	SVM = LinearSVC(loss = 'hinge', penalty = 'l2')
 	SVM.fit(trainHoG,trainLabel)
 	print "Accuracy: ",SVM.score(testHoG, testLabel)*100.0

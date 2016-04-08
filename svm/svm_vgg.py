@@ -71,7 +71,7 @@ if __name__ == '__main__':
 		trainData, trainLabel, testData,testLabel = featureextract(it-1)	
 		print "Data Loaded..."
 
-		SVM = LinearSVC(loss = 'hinge')
+		SVM = LinearSVC(loss = 'hinge', penalty = 'l2')
 		SVM.fit(trainData,trainLabel)
 		svm_accuracy[it-1] = SVM.score(testData, testLabel)*100.0
 		print it,"--> Predictions:",len(testLabel),"Accuracy:",svm_accuracy[it-1]

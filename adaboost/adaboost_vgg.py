@@ -44,7 +44,6 @@ from PIL import Image, ImageOps
 # 		res.append(FV)
 # 	return np.asarray(res)
 
-N = 5
 def featureextract():
 	training_x = []
 	training_y = []
@@ -55,7 +54,7 @@ def featureextract():
 	validation_x = []
 	validation_y = []
 
-	with open('../featurevectorvgg-f7.txt','r') as f:
+	with open('../../featurevectorvgg-f7.txt','r') as f:
 		lines = f.readlines()
 	num = len(lines)/3
 
@@ -86,8 +85,9 @@ if __name__ == '__main__':
 	print "Dimension:",len(trainData[0])
 	ada_boost_accuracy = np.zeros(shape = (5,10))
 	print "Adaboost Classifiction"
-	best_depth = -1
-	best_trees = -1
+	best_depth = 8
+	best_trees = 240
+	'''
 	best_accuracy = -1
 
 	for i in range(5):
@@ -108,10 +108,10 @@ if __name__ == '__main__':
 				best_trees = trees
 
 	np.savetxt("adaboost_vgg_training_stats.txt",ada_boost_accuracy,fmt = '%10.5f')
-
-	print "Finding accuracy for best found parameters:"
-	print "Best number of estimators:",best_trees
-	print "Best depth of trees:", best_depth
+	'''
+	print "Finding accuracy for parameters:"
+	print "Number of estimators:",best_trees
+	print "Depth of trees:", best_depth
 	ABC = AdaBoostClassifier(DecisionTreeClassifier(max_depth = best_depth), n_estimators = best_trees)
 	ABC.fit(trainData, trainLabel)	
 	print "Accuracy:", ABC.score(testData, testLabel)*100.0

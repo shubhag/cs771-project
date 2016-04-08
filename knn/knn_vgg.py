@@ -80,13 +80,15 @@ def featureextract():
 
 if __name__ == '__main__':
 	trainData, trainLabel,validationData, validationLabel,testData, testLabel = featureextract()
+	testData+=validationData
+	testLabel+=validationLabel
 	print "Data Loaded..."
 	
 	knn_accuracy = np.zeros(shape = (51,2))
 	K = [1,2,3,4,5,6,7,8,9,10]
-	best_k = -1
+	best_k = 3
 	best_accuracy = -1
-
+	'''
 	for i in range(51):
 		if i<10:
 			k = K[i]
@@ -101,9 +103,9 @@ if __name__ == '__main__':
 			best_k = k 
 		print "k:",k,"Accuracy:",knn_accuracy[i,1]
 	np.savetxt("knn_vgg_training_stats.txt",knn_accuracy,fmt = '%10.5f')
-
-	print "Finding accuracy for best found parameters:"
-	print "Best k:",best_k
+	'''
+	print "Finding accuracy for parameters:"
+	print "K:",best_k
 	KNN = KNeighborsClassifier(n_neighbors = best_k, weights = 'distance', metric = 'euclidean')
 	KNN.fit(trainData,trainLabel)
 	print "Accuracy:", KNN.score(testData, testLabel)*100.0

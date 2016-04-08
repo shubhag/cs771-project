@@ -82,13 +82,14 @@ def featureextract():
 
 if __name__ == '__main__':
 	trainData, trainLabel, validationData, validationLabel, testData, testLabel = featureextract()
+	testData += validationData
+	testLabel += validationLabel
 	print "Data Loaded..."
-
 	forest_accuracy = np.zeros(shape = (20))
 	
-	best_size = -1
+	best_size = 200
 	best_accuracy = -1
-	
+	'''
 	for k in range(20):
 		t = (k+1)*20
 		RFC = RandomForestClassifier(n_estimators = t)
@@ -100,9 +101,9 @@ if __name__ == '__main__':
 			best_size = t
 
 	np.savetxt("forest_vgg_training_stats.txt",forest_accuracy,fmt = '%10.5f')
-
-	print "Finding accuracy for best found parameters:"
-	print "Best tree size:", best_size
+	'''
+	print "Finding accuracy for parameters:"
+	print "Tree size:", best_size
 
 	RFC = RandomForestClassifier(n_estimators = best_size)
 	RFC.fit(trainData,trainLabel)

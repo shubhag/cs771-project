@@ -11,12 +11,12 @@ def getData(folder):
 	FL = []
 	cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 	cur_dir = os.path.join(cur_dir, "makedataset")
-	folders = ["auto", "car", "bicycle", "motorcycle", "person"]
-	obj_id = [0, 1, 2, 3, 4]
+	folders = ["auto", "car", "bicycle", "motorcycle", "person", "rickshaw"]
+	obj_id = [0, 1, 2, 3, 4, 5]
 	size = (36, 36)
 
 	data_dir = os.path.join(cur_dir, folder)
-	for i in range(0,5):
+	for i in range(0,6):
 		folder = folders[i]
 		obj_dir = os.path.join(data_dir, folder)
 		files = os.listdir(obj_dir)
@@ -57,8 +57,9 @@ if __name__ == '__main__':
 	
 	ada_boost_accuracy = np.zeros(shape = (10,10))
 	print "Adaboost Classifiction"
-	best_depth = -1
-	best_trees = -1
+	best_depth = 12
+	best_trees = 140
+	'''
 	best_accuracy = -1
 
 	for i in range(10):
@@ -79,10 +80,10 @@ if __name__ == '__main__':
 				best_trees = trees
 
 	np.savetxt("adaboost_training_stats.txt",ada_boost_accuracy,fmt = '%10.5f')
-
-	print "Finding accuracy for best found parameters:"
-	print "Best number of estimators:",best_trees
-	print "Best depth of trees:", best_depth
+	'''
+	print "Finding accuracy for parameters:"
+	print "Number of estimators:",best_trees
+	print "Depth of trees:", best_depth
 	ABC = AdaBoostClassifier(DecisionTreeClassifier(max_depth = best_depth), n_estimators = best_trees)
-	ABC.fit(trainHoG, trainLabel)	
+	ABC.fit(trainHoG, trainLabel)
 	print "Accuracy:", ABC.score(testHoG, testLabel)*100.0

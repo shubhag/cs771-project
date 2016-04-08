@@ -10,12 +10,12 @@ def getData(folder):
 	FL = []
 	cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 	cur_dir = os.path.join(cur_dir, "makedataset")
-	folders = ["auto", "car", "bicycle", "motorcycle", "person"]
-	obj_id = [0, 1, 2, 3, 4]
+	folders = ["auto", "car", "bicycle", "motorcycle", "person", "rickshaw"]
+	obj_id = [0, 1, 2, 3, 4, 5]
 	size = (36, 36)
 
 	data_dir = os.path.join(cur_dir, folder)
-	for i in range(0,5):
+	for i in range(0,6):
 		folder = folders[i]
 		obj_dir = os.path.join(data_dir, folder)
 		files = os.listdir(obj_dir)
@@ -30,10 +30,10 @@ def getData(folder):
 			FV.append(bw)
 			FL.append(obj_id[i])
 
-	FV = np.asarray(FV)
-	FL = np.asarray(FL)
+	# FV = np.asarray(FV)
+	# FL = np.asarray(FL)
 	# FV = FV.reshape((FV.shape[0], 1, size[0], size[1]))
-	print FV.shape
+	# print FV.shape
 	return FV,FL
 
 def constructHoG(data, orientations = 10, cell_size = (4,4), block_size = (2,2) ):
@@ -47,18 +47,19 @@ if __name__ == '__main__':
 	trainData, trainLabel = getData("train")
 	validationData, validationLabel = getData("validation")
 	testData, testLabel = getData("test")
-	
+	testData+=validationData
+	testLabel+=validationLabel
 	print "Data Loaded..."
 
 	trainHoG = constructHoG(trainData)
 	validationHoG = constructHoG(validationData)
 	testHoG = constructHoG(testData)
-	
+	# '''
 	knn_accuracy = np.zeros(shape = (51,2))
 	K = [1,2,3,4,5,6,7,8,9,10]
-	best_k = -1
+	best_k = 4
 	best_accuracy = -1
-
+	'''
 	for i in range(51):
 		if i<10:
 			k = K[i]
@@ -73,9 +74,9 @@ if __name__ == '__main__':
 			best_k = k 
 		print "k:",k,"Accuracy:",knn_accuracy[i,1]
 	np.savetxt("knn_training_stats.txt",knn_accuracy,fmt = '%10.5f')
-
-	print "Finding accuracy for best found parameters:"
-	print "Best k:",best_k
+	'''
+	print "Finding accuracy for parameters:"
+	print "K:",best_k
 	KNN = KNeighborsClassifier(n_neighbors = best_k, weights = 'distance', metric = 'euclidean')
 	KNN.fit(trainHoG,trainLabel)
 	print "Accuracy:", KNN.score(testHoG, testLabel)*100.0
