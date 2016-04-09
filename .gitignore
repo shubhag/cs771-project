@@ -1,12 +1,9 @@
 *.mp4
 *.dav
 *.mov
-dataset/
-makedataset/test/
-makedataset/total/
-makedataset/train/
-makedataset/test/
-makedataset/validation/
+makedataset/
 crude-dataset/
 te-train/data
 train/data
+final_*
+night_*

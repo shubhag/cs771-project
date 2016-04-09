@@ -6,6 +6,8 @@ from sklearn.ensemble import RandomForestClassifier
 from PIL import Image, ImageOps
 import cPickle
 
+N = 5
+
 def getData(folder):
 	FV = []
 	FL = []
@@ -30,11 +32,23 @@ def getData(folder):
 			bw = np.asarray(background)
 			FV.append(bw)
 			FL.append(obj_id[i])
-
-	# FV = np.asarray(FV)
-	# FL = np.asarray(FL)
-	# print FV.shape
 	return FV,FL
+
+def featureextract(FV, FL, it):
+	training_x = []
+	training_y = []
+
+	test_x = []
+	test_y = []
+
+	for i in range(len(FL)):
+		if i%N == it:
+			test_x.append(FV[i])
+			test_y.append(FL[i])
+		else:
+			training_x.append(FV[i])
+			training_y.append(FL[i])
+	return training_x, training_y, test_x, test_y
 
 def constructHoG(data, orientations = 3, cell_size = (7,7), block_size = (2,2) ):
 	res = []
@@ -44,6 +58,14 @@ def constructHoG(data, orientations = 3, cell_size = (7,7), block_size = (2,2) )
 	return np.asarray(res)
 
 if __name__ == '__main__':
+	totalData, totalLabel = getData("night")
+	best_orientation = 3
+	best_size = 160
+	best_cell = 7
+	print "Data Loaded..."
+	totalData = constructHoG(totalData, orientations = best_orientation, cell_size = (best_cell,best_cell))
+	print "Constructed HoG..."
+	'''
 	trainData, trainLabel = getData("train")
 	validationData, validationLabel = getData("validation")
 	testData, testLabel = getData("test")
@@ -58,7 +80,7 @@ if __name__ == '__main__':
 	best_accuracy = -1
 	best_orientation = 3
 	best_cell = 7
-	'''
+	
 	for i in range(8):
 		c = i+3
 		for j in range(8):
@@ -85,8 +107,15 @@ if __name__ == '__main__':
 	print "Orientation:", best_orientation
 	print "Cell size:", best_cell
 
-	trainHoG = constructHoG(trainData, orientations = best_orientation, cell_size = (best_cell,best_cell))
-	testHoG = constructHoG(testData, orientations = best_orientation, cell_size = (best_cell,best_cell))
-	RFC = RandomForestClassifier(n_estimators = best_size)
-	RFC.fit(trainHoG,trainLabel)
-	print "Accuracy:",RFC.score(testHoG, testLabel)*100.0
+	forest_accuracy = np.zeros(shape = (N+1))
+	for it in range(N):
+		trainData, trainLabel, testData, testLabel = featureextract(totalData, totalLabel, it)	
+		print "Data Loaded for",it+1,"iteration..."
+		RFC = RandomForestClassifier(n_estimators = best_size)
+		RFC.fit(trainData,trainLabel)
+		forest_accuracy[it] = RFC.score(testData, testLabel)*100.0
+
+		print it+1,"--> Predictions:",len(testLabel),"--> Accuracy:",forest_accuracy[it]
+	forest_accuracy[N] = np.mean(forest_accuracy[:N])
+	print "Average accuracy:",forest_accuracy[N]
+	np.savetxt("forest_hog_large_data_night_"+ str(N)+"fold.txt",forest_accuracy,fmt = '%10.5f')

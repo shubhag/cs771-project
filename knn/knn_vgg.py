@@ -43,17 +43,15 @@ from sklearn.neighbors import KNeighborsClassifier
 # 		res.append(FV)
 # 	return np.asarray(res)
 
-def featureextract():
+N = 5
+def featureextract(it, featurevector):
 	training_x = []
 	training_y = []
 
 	test_x = []
 	test_y = []
 
-	validation_x = []
-	validation_y = []
-
-	with open('../../featurevectorvgg-f7.txt','r') as f:
+	with open(featurevector,'r') as f:
 		lines = f.readlines()
 	num = len(lines)/3
 
@@ -63,10 +61,7 @@ def featureextract():
 		objtype = objects.index(lines[3*i].split('/')[4])
 		if objtype >= 0 :
 			vector = np.array(map(float, lines[3*i + 1].strip().split(' ')))
-			if i%10 == 0:
-				validation_x.append(vector)
-				validation_y.append(objtype)
-			elif i%10 ==1:
+			if i%N == it:
 				test_x.append(vector)
 				test_y.append(objtype)
 			else:
@@ -76,19 +71,32 @@ def featureextract():
 			print objtype
 			print lines[3*i]
 
-	return training_x, training_y, validation_x, validation_y, test_x, test_y
+	return training_x, training_y, test_x, test_y
 
 if __name__ == '__main__':
-	trainData, trainLabel,validationData, validationLabel,testData, testLabel = featureextract()
-	testData+=validationData
-	testLabel+=validationLabel
+	knn_accuracy = np.zeros(shape = (N+1))
+	best_k = 3
+	for it in range(N):
+		trainData, trainLabel, testData,testLabel = featureextract(it, sys.argv[1])	
+		print "Data Loaded..."
+
+		KNN = KNeighborsClassifier(n_neighbors = best_k, weights = 'distance', metric = 'euclidean')
+		KNN.fit(trainData,trainLabel)
+		knn_accuracy[it] = KNN.score(testData, testLabel)*100.0
+		print it+1,"--> Predictions:",len(testLabel),"--> Accuracy:",knn_accuracy[it]
+	knn_accuracy[N] = np.mean(knn_accuracy[:N])
+	print "Average accuracy:",knn_accuracy[N]
+	np.savetxt("knn_large_data_night_"+ sys.argv[1][3:] + "_" +str(N)+"fold.txt",knn_accuracy,fmt = '%10.5f')
+	
+	'''
+	trainData, trainLabel,testData, testLabel = featureextract()
 	print "Data Loaded..."
 	
 	knn_accuracy = np.zeros(shape = (51,2))
 	K = [1,2,3,4,5,6,7,8,9,10]
 	best_k = 3
 	best_accuracy = -1
-	'''
+	
 	for i in range(51):
 		if i<10:
 			k = K[i]
@@ -103,9 +111,10 @@ if __name__ == '__main__':
 			best_k = k 
 		print "k:",k,"Accuracy:",knn_accuracy[i,1]
 	np.savetxt("knn_vgg_training_stats.txt",knn_accuracy,fmt = '%10.5f')
-	'''
+	
 	print "Finding accuracy for parameters:"
 	print "K:",best_k
 	KNN = KNeighborsClassifier(n_neighbors = best_k, weights = 'distance', metric = 'euclidean')
 	KNN.fit(trainData,trainLabel)
 	print "Accuracy:", KNN.score(testData, testLabel)*100.0
+	'''

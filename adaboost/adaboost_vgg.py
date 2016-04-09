@@ -5,7 +5,7 @@ from skimage.feature import hog
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.tree import DecisionTreeClassifier
 from PIL import Image, ImageOps
-
+import sys
 # def getData(folder):
 # 	FV = []
 # 	FL = []
@@ -44,19 +44,20 @@ from PIL import Image, ImageOps
 # 		res.append(FV)
 # 	return np.asarray(res)
 
-def featureextract():
+N = 5
+def featureextract(it, featurevector):
+	print featurevector
 	training_x = []
 	training_y = []
 
 	test_x = []
 	test_y = []
 
-	validation_x = []
-	validation_y = []
-
-	with open('../../featurevectorvgg-f7.txt','r') as f:
+	# with open('../../featurevectorvgg-f7.txt','r') as f:
+	with open(featurevector,'r') as f:
 		lines = f.readlines()
 	num = len(lines)/3
+
 
 	objects = ["auto", "car", "bicycle", "motorcycle", "person", "rickshaw"]
 
@@ -64,10 +65,7 @@ def featureextract():
 		objtype = objects.index(lines[3*i].split('/')[4])
 		if objtype >= 0 :
 			vector = np.array(map(float, lines[3*i + 1].strip().split(' ')))
-			if i%10 == 0:
-				validation_x.append(vector)
-				validation_y.append(objtype)
-			elif i%10 ==1:
+			if i%N ==it:
 				test_x.append(vector)
 				test_y.append(objtype)
 			else:
@@ -77,41 +75,26 @@ def featureextract():
 			print objtype
 			print lines[3*i]
 
-	return training_x, training_y, validation_x, validation_y, test_x, test_y
+	return training_x, training_y, test_x, test_y
 
 if __name__ == '__main__':
-	trainData, trainLabel, validationData, validationLabel, testData, testLabel = featureextract()
-	print "Data Loaded..."
-	print "Dimension:",len(trainData[0])
-	ada_boost_accuracy = np.zeros(shape = (5,10))
-	print "Adaboost Classifiction"
+	adaboost_accuracy = np.zeros(shape = (N+1))
 	best_depth = 8
 	best_trees = 240
-	'''
-	best_accuracy = -1
-
-	for i in range(5):
-		max_depth = (i+1)*4
-		for j in range(10):
-			trees = (j+1)*20 + 100
-			
-			ABC = AdaBoostClassifier(DecisionTreeClassifier(max_depth = max_depth), n_estimators = trees)
-			ABC.fit(trainData, trainLabel)
-			print "Fitting Done for max depth =",max_depth,"and trees =",trees
-			
-			ada_boost_accuracy[i,j] = ABC.score(validationData, validationLabel)*100.0
-			print "Accuracy:",ada_boost_accuracy[i,j]
-			
-			if ada_boost_accuracy[i,j]> best_accuracy:
-				best_accuracy = ada_boost_accuracy[i,j]
-				best_depth = max_depth
-				best_trees = trees
-
-	np.savetxt("adaboost_vgg_training_stats.txt",ada_boost_accuracy,fmt = '%10.5f')
-	'''
 	print "Finding accuracy for parameters:"
 	print "Number of estimators:",best_trees
 	print "Depth of trees:", best_depth
-	ABC = AdaBoostClassifier(DecisionTreeClassifier(max_depth = best_depth), n_estimators = best_trees)
-	ABC.fit(trainData, trainLabel)	
-	print "Accuracy:", ABC.score(testData, testLabel)*100.0
+
+	for it in range(N):
+		trainData, trainLabel, testData,testLabel = featureextract(it, sys.argv[1])	
+		print "Data Loaded for",it+1,"iteration..."
+
+		ABC = AdaBoostClassifier(DecisionTreeClassifier(max_depth = best_depth), n_estimators = best_trees)
+		ABC.fit(trainData,trainLabel)
+		adaboost_accuracy[it] = ABC.score(testData, testLabel)*100.0
+		print it+1,"--> Predictions:",len(testLabel),"--> Accuracy:",adaboost_accuracy[it]
+	adaboost_accuracy[N] = np.mean(adaboost_accuracy[:N])
+	print "Average accuracy:",adaboost_accuracy[N]
+	np.savetxt("adaboost_large_data_night_" + sys.argv[1][3:] + "_" + str(N)+"fold.txt",adaboost_accuracy,fmt = '%10.5f')
+	
+
